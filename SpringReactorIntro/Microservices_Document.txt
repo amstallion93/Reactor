@@ -1,0 +1,122 @@
+**********************************************************************************************************************************************
+Reactive Asynchronous (Webflux):
+	Programs that are non blocking. 
+	
+	The client need not wait for the response from server. (2 exams tomorrow and the book of 1 exam is with your friend)
+	Mono & Flux are implementations of the Publisher interface. A Flux will observe 0 to N items and eventually terminate 
+	successfully or not. A Mono will observe 0 or 1 item, with Mono<Void> hinting at most 0 item.
+	
+	When you invoke a function that returns a mono 	or a flux, it will return immediately. The results of the function 
+	call will be delivered to you through the mono or flux when they become available.
+
+**********************************************************************************************************************************************	
+
+RabbitMq:
+	Messaging provides a way to communicate loosely, asynchronously, and progressively. There are many protocols that exist that 
+	provide this feature, and AMQP is one of the most popular and robust.
+	
+	AMQP (Advanced Message Queuing Protocol) is a protocol that RabbitMQ uses for messaging. 
+	
+	RabbitMQ is a powerful, open-source message broker. 
+	
+	Steps for Setup :
+		Install Erlang : http://www.erlang.org/downloads
+		Install RabbitMq : https://www.rabbitmq.com/install-windows.html
+		
+		Guide : https://www.rabbitmq.com/install-windows-manual.html
+		
+		set environment variables
+		
+		rabbitmq-plugins enable rabbitmq_management - for setting up the management pkugins.
+		
+		rabbitmqctl add_user test test -For creating a new user if necessary
+		
+		rabbitmq-service.bat install start stop...
+		
+		rabbitmqctl.bat start_app
+	
+	Terms :
+	
+	Exchange - Takes a message and routes it to one or more queues. Routing algorithms decides where to send the message from the exchange.
+	Routing algorithms depends on the exchange type and rules called “bindings.”
+	
+	Exchange Types:
+		Direct-It routes messages with a routing key equal to the routing key declared by the binding queue
+		Fanout-It routes messages to all the queues from the bound exchange. If routing key is provided then it will be ignored
+		Topic-It routes messages to queues based on either full or a portion of routing key matches
+		Headers-Routes messages based upon matching of the message header to specified header based on binding queue
+		
+	Topics: Topics are the subject part of the messages. These are the optional parameters for message exchange.
+	
+	Bindings: "Bindings" is the glue that holds exchanges and queues together. These are the rules for routing algorithms.
+	
+	Queue: Queue is a container for messages. It is only bound by the host’s memory and disk limit. Queues are the final destination 
+	for messages before being popped up by subscribers.
+	
+	Producer: Producer is a program that sends message to a queue.
+
+	Consumer: A consumer is a program which receives messages from the queue.
+	
+	
+	Program :
+		UserService : The Class that contains the controller
+		MessageSender : The Class that sends the message to the queue
+		MessageListener : The Class which is notified when there is a message in the queue
+	
+**********************************************************************************************************************************************
+	
+Eureka Netflix :
+	Client Side Service Discovery:
+		When using client-side discovery, the client is responsible for determining the network locations of available service 
+		instances and load balancing requests across them. The client queries a service registry, which is a database of available 
+		service instances. The client then uses a load-balancing algorithm to select one of the available service instances and 
+		makes a request.
+		
+		You must implement client-side service discovery logic for each programming language and framework used by your service clients.
+		
+		With Netflix Eureka each client can simultaneously act as a server, to replicate its status to a connected peer. In other words, 
+		a client retrieves a list of all connected peers of a service registry and makes all further requests to any other services through a load-balancing algorithm.
+		
+	Server Side Service Discovery:
+		The client makes a request to a service via a load balancer. The load balancer queries the service registry and routes each 
+		request to an available service instance. As with client-side discovery, service instances are registered and deregistered 
+		with the service registry.
+	
+	Default-Zone : The default registry to which it connects
+	PreferIp : Use IP instead of hostname.
+	
+	FeignClient :
+		Think of Feign as discovery-aware Spring RestTemplate using interfaces to communicate with endpoints. This interfaces 
+		will be automatically implemented at runtime and instead of service-urls, it is using service-names.
+		
+		Application application = eurekaClient.getApplication("spring-cloud-eureka-client");//Avoids autowiring of service
+		
+		The Feign client removes the need to write boilerplate code for the REST client. The REST client can just keep the same 
+		signature as the REST service and the internals will be handled by the Feign client.
+		
+		@FeignClient(name = "VolunteerService/vs")
+		public interface VolunteerServiceProxy {
+		@RequestMapping(value = "/volunteers/{servicename}", method = RequestMethod.GET)
+			List < String > getVolunteers(@PathVariable("servicename") String servicename);
+		}
+		
+**********************************************************************************************************************************************
+Jenkins :
+	Install Jenkins from https://jenkins.io/
+	Unlock jenkins from browser with the password in C://Program files/jenkins/secrets/imitialadminpassword
+	set username and password
+	Set Java Home From Manage Jenkins->Global Tool Configuration → JDK Installations → Add JDK
+	Add Git to Git/bin/git.exe
+	
+	Manage Jenkins → Plugin Manager → Available → Search “Deploy to container Plugin” → Install
+	Bibucket Plugins
+	
+	Credentials → System → Global Credentials → Add Credentials → Enter Tomcat manager credentials
+	
+	Jenkins → New Item → Freestyle project(Fill required info)
+	
+	Git Autobuild;Build Trigger
+	
+	
+	
+	

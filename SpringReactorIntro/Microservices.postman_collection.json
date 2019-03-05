@@ -1,0 +1,38 @@
+{
+	"info": {
+		"_postman_id": "201437a8-704e-43c6-8e5d-46be02e19036",
+		"name": "Microservices",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "WebFlux Save book",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"title\": \"Book 1\", \"author\": \"Mr Author\"}"
+				},
+				"url": "http://localhost:8090/book"
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Books ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"url": "http://localhost:8090/books",
+				"description": "Get All Books "
+			},
+			"response": []
+		}
+	]
+}
